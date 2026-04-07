@@ -12,7 +12,7 @@ def main():
     processed_data_path = path_config["processed_data_path"]
     factor_data_path = path_config["factor_data_path"]
 
-    df_factor = pd.read_csv(processed_data_path)
+    df_factor = pd.read_csv(processed_data_path,encoding="utf-8-sig")
 
     ma_windows = factor_config["ma_windows"]
     rsi_window = factor_config["rsi_window"]

@@ -13,7 +13,7 @@ def calculate_ma(df: pd.DataFrame, windows: list) -> pd.DataFrame:
         Dataframe with MA columns added
     """
     for window in windows:
-        df[f"MA{window}"] = df["收盘"].rolling(window=window).mean()
+        df[f"ma_{window}"] = df["收盘"].rolling(window=window).mean()
     return df
 
 
@@ -40,7 +40,7 @@ def calculate_rsi(df: pd.DataFrame, window: int) -> pd.DataFrame:
     avg_loss = loss.rolling(window=window).mean()
 
     rs = avg_gain / avg_loss
-    df["RSI"] = 100 - (100 / (1 + rs))
+    df["rsi"] = 100 - (100 / (1 + rs))
 
     return df
 
@@ -74,5 +74,5 @@ def calculate_macd(
     dif = ema_short - ema_long
     dea = dif.ewm(span=signal_window, adjust=False).mean()
 
-    df["MACD"] = dif - dea
+    df["macd"] = dif - dea
     return df

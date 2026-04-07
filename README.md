@@ -1,41 +1,44 @@
 # quant-research-lab-v1
 
-A beginner-friendly quantitative research project for building a reproducible and extensible stock factor research pipeline.
+A beginner-friendly quantitative research project for stock factor research using Python.
 
-## Overview
+## Project Overview
 
-This project is designed to simulate a basic quantitative research workflow, including:
+This project is designed to build a basic quantitative research workflow around stock factor generation.  
+It covers the complete pipeline from raw stock data acquisition to data cleaning and technical factor calculation.
 
-- historical stock data fetching
-- raw data cleaning and preprocessing
-- technical factor generation
-- factor result storage and management
+Current implemented factors include:
 
-The current research target is **CATL (300750)**.
+- MA (Moving Average)
+- RSI (Relative Strength Index)
+- MACD (Moving Average Convergence Divergence)
+
+The project focuses on:
+
+- Modular Python engineering structure
+- Config-based parameter management
+- Reproducible factor research workflow
+- Beginner-friendly quantitative research practice
 
 ---
 
 ## Project Structure
 
-```bash id="c8k5f2"
+```bash
 quant-research-lab-v1/
-│
 ├── config/
-│   └── config.yaml
-│
+│   └── config.yaml              # Project configuration file
 ├── data/
-│   ├── raw/
-│   ├── processed/
-│   └── factors/
-│
+│   ├── raw/                     # Raw stock data
+│   ├── processed/               # Cleaned stock data
+│   └── factors/                 # Factor-enriched stock data
+├── notebooks/                   # Research notebooks (optional)
+├── reports/                     # Output reports / notes
 ├── src/
 │   ├── __init__.py
-│   ├── data.py
-│   ├── factors.py
-│   └── run_factors.py
-│
-├── notebooks/
-│
+│   ├── data.py                  # Config loading & data processing functions
+│   ├── factors.py               # MA / RSI / MACD factor calculation functions
+│   └── run_factors.py           # Main program entry for factor generation
+├── .gitignore
 ├── README.md
-├── requirements.txt
-└── .gitignore
+└── requirements.txt

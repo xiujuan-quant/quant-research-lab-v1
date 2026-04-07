@@ -12,7 +12,7 @@ def load_config(config_path: str = "./config/config.yaml") -> dict:
 
 def get_path_config(config: dict) -> dict:
     """Get path configuration."""
-    return config["paths"]
+    return config["path"]
 
 
 def get_data_config(config: dict) -> dict:
