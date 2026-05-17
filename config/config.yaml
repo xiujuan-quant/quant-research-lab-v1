@@ -1,18 +1,30 @@
+# config.yaml
+# quant-research-lab-v1 项目配置文件
+# 遵循配置与代码分离原则，便于维护和实验管理
+
+# ==================== 数据获取配置 ====================
 data:
-    stock_code: "300750"
-    period: "daily"
-    start_date: "20240101"
-    end_date: "20260401"
-    adjust: "qfq"
+  stock_code: "300750"           # 股票代码
+  period: "daily"                # 数据周期
+  start_date: "20240101"         # 开始日期
+  end_date: "20260401"           # 结束日期
+  adjust: "qfq"                  # 复权方式
 
+# ==================== 路径配置 ====================
 path:
-    raw_data_path: "./data/raw/300750_raw.csv"
-    processed_data_path: "./data/processed/300750_clean.csv"
-    factor_data_path: "./data/factors/300750_factor.csv"
+  raw_data_path: "./data/raw/300750_raw.csv"           # 原始抓取数据
+  processed_data_path: "./data/processed/300750_clean.csv"  # 清洗后数据
+  factor_data_path: "./data/factors/300750_factor.csv" # 因子表（含标签）
 
+# ==================== 因子参数配置 ====================
 factor:
-    ma_windows: [5,10,20]
-    rsi_window: 14
-    macd_short: 12
-    macd_long: 26
-    macd_signal: 9
+  ma_windows: [5, 10, 20]        # 移动平均线窗口
+  rsi_window: 14                 # RSI 默认周期
+  macd_short: 12                 # MACD 短期 EMA
+  macd_long: 26                  # MACD 长期 EMA
+  macd_signal: 9                 # MACD DEA 平滑周期
+
+# ==================== 回测成本配置 ====================
+backtest:
+    commission: 0.0003        #手续费率
+    slippage: 0.001           #滑点率

@@ -1,78 +1,44 @@
+"""因子计算模块"""
+
 import pandas as pd
 
 
-def calculate_ma(df: pd.DataFrame, windows: list) -> pd.DataFrame:
-    """
-    Compute moving average (MA) features.
-
-    Args:
-        df: Stock dataframe with close price column
-        windows: List of MA window sizes
-
-    Returns:
-        Dataframe with MA columns added
-    """
+def calculate_ma(df: pd.DataFrame, windows: list[int]) -> pd.DataFrame:
+    """计算移动平均线 (MA) 因子。"""
     for window in windows:
-        df[f"ma_{window}"] = df["收盘"].rolling(window=window).mean()
+        df[f"MA{window}"] = df["收盘"].rolling(window=window).mean()
     return df
 
 
-def calculate_rsi(df: pd.DataFrame, window: int) -> pd.DataFrame:
-    """
-    Compute Relative Strength Index (RSI).
-
-    RSI measures momentum by comparing average gains and losses
-    over a rolling window.
-
-    Args:
-        df: Stock dataframe with close price column
-        window: RSI rolling window size
-
-    Returns:
-        Dataframe with RSI column added
-    """
+def calculate_rsi(df: pd.DataFrame, window: int = 14) -> pd.DataFrame:
+    """计算相对强弱指数 (RSI)。"""
     delta = df["收盘"].diff()
-
     gain = delta.clip(lower=0)
     loss = -delta.clip(upper=0)
 
     avg_gain = gain.rolling(window=window).mean()
     avg_loss = loss.rolling(window=window).mean()
-
     rs = avg_gain / avg_loss
-    df["rsi"] = 100 - (100 / (1 + rs))
 
+    df["RSI"] = 100 - (100 / (1 + rs))
     return df
 
 
 def calculate_macd(
     df: pd.DataFrame,
-    short_window: int,
-    long_window: int,
-    signal_window: int
+    short_window: int = 12,
+    long_window: int = 26,
+    signal_window: int = 9
 ) -> pd.DataFrame:
-    """
-    Compute MACD indicator.
-
-    Formula:
-        DIF = EMA(short) - EMA(long)
-        DEA = EMA(DIF, signal)
-        MACD = DIF - DEA
-
-    Args:
-        df: Stock dataframe with close price column
-        short_window: Short EMA window
-        long_window: Long EMA window
-        signal_window: Signal smoothing window
-
-    Returns:
-        Dataframe with MACD column added
-    """
+    """计算 MACD 指标。"""
     ema_short = df["收盘"].ewm(span=short_window, adjust=False).mean()
     ema_long = df["收盘"].ewm(span=long_window, adjust=False).mean()
 
     dif = ema_short - ema_long
     dea = dif.ewm(span=signal_window, adjust=False).mean()
 
-    df["macd"] = dif - dea
+    df["DIF"] = dif
+    df["DEA"] = dea
+    df["MACD"] = dif - dea
+
     return df
